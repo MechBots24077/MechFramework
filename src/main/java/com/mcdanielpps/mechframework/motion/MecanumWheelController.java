@@ -13,9 +13,18 @@ public class MecanumWheelController {
     public boolean InvertRL = false;
     public boolean InvertRR = false;
 
-    // Helper function to convert the boolean invert input to a coefficient that can be used for the math
-    private double CastInvert(boolean invert) {
-        return invert ? -1.0 : 1.0;
+    public void ResetMotors() {
+        FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public void InitMotors(boolean useEncoder) {
+        FL.setMode(useEncoder ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FR.setMode(useEncoder ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RL.setMode(useEncoder ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RR.setMode(useEncoder ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void UpdateWheels(double theta, double power, double turn, double speedCoefficient) {
@@ -47,5 +56,10 @@ public class MecanumWheelController {
         double theta = Math.atan2(y, x);
         double power = Math.hypot(x, y);
         UpdateWheels(theta, power, turn, speedCoefficient);
+    }
+
+    // Helper function to convert the boolean invert input to a coefficient that can be used for the math
+    private double CastInvert(boolean invert) {
+        return invert ? -1.0 : 1.0;
     }
 }
