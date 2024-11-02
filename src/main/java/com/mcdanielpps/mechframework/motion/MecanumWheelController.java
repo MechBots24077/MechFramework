@@ -52,10 +52,36 @@ public class MecanumWheelController {
         RR.setPower(rightRear * speedCoefficient);
     }
 
+//    public void UpdateWheelsGamepad(double x, double y, double turn, double speedCoefficient) {
+//        double theta = Math.atan2(y, x);
+//        double power = Math.hypot(x, y);
+//        UpdateWheels(theta, power, turn, speedCoefficient);
+//    }
+
     public void UpdateWheelsGamepad(double x, double y, double turn, double speedCoefficient) {
-        double theta = Math.atan2(y, x);
-        double power = Math.hypot(x, y);
-        UpdateWheels(theta, power, turn, speedCoefficient);
+        // Crazy magic math https://github.com/FIRST-Tech-Challenge/FtcRobotController/blob/master/FtcRobotController/src/main/java/org/firstinspires/ftc/robotcontroller/external/samples/BasicOmniOpMode_Linear.java
+        double flPower  = x + y - turn;
+        double frPower = x - y - turn;
+        double rlPower   = x - y + turn;
+        double rrPower  = x + y + turn;
+
+        // Normalize the values
+        double max = Math.max(Math.abs(flPower), Math.abs(frPower));
+        max = Math.max(max, Math.abs(rlPower));
+        max = Math.max(max, Math.abs(rrPower));
+
+        if (max > 1.0) {
+            flPower  /= max;
+            frPower /= max;
+            rlPower   /= max;
+            rrPower  /= max;
+        }
+
+        // Apply the calculated power to the wheels
+        FL.setPower(flPower * speedCoefficient * CastInvert(InvertFL));
+        FR.setPower(frPower * speedCoefficient * CastInvert(InvertFR));
+        RL.setPower(rlPower * speedCoefficient * CastInvert(InvertRL));
+        RR.setPower(rrPower * speedCoefficient * CastInvert(InvertRR));
     }
 
     // Helper function to convert the boolean invert input to a coefficient that can be used for the math
