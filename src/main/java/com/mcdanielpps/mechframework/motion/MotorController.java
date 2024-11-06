@@ -9,8 +9,9 @@ public class MotorController {
     public DcMotor Motor;
 
     public int Goal = 0;
+    private int m_CurrentPosition = 0;
 
-    private final PIDController m_PID;
+    public final PIDController m_PID;
     private long m_LastMeasurement = 0;
 
     public MotorController(DcMotor motor, double kp, double ki, double kd) {
@@ -34,11 +35,13 @@ public class MotorController {
         if ((currentTime - m_LastMeasurement) < 10) { return 0.0; }
         m_LastMeasurement = currentTime;
 
-        int currentMeasure = Motor.getCurrentPosition();
+        m_CurrentPosition = Motor.getCurrentPosition();
 
-        double output = m_PID.Update((double)Goal, (double)currentMeasure);
+        double output = m_PID.Update((double)Goal, (double)m_CurrentPosition);
         Motor.setPower(output / 100.0);
 
         return output;
     }
+
+    public int GetCurrentPos() { return m_CurrentPosition; }
 }
