@@ -3,7 +3,7 @@ package com.mcdanielpps.mechframework.util;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class TimeUnitTest {
+public class TimeUnitTests {
     @Test
     public void DeltaTime_isCorrect() {
         // Control the current time value used by Time

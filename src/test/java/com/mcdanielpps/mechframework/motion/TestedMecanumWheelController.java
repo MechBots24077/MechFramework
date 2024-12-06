@@ -2,7 +2,9 @@ package com.mcdanielpps.mechframework.motion;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class MecanumWheelController {
+// THIS IS A REALLY BAD EXAMPLE OF WORKING CODE AND NEEDS TO BE CHANGED TO AN ACTUALLY FUNCTIONAL EXAMPLE
+// This code should work without InvertFL set to true, but it doesn't.
+public class TestedMecanumWheelController {
     public DcMotor FL = null;
     public DcMotor FR = null;
     public DcMotor RL = null;
