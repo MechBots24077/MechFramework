@@ -114,4 +114,16 @@ public class MecanumWheelControllerUnitTests {
         testedController.UpdateWheels(0.148, 0.133, 0.784, 1.0);
         CompareWithTestedController("Combined input test #4", looseDelta, wheelController, testedController);
     }
+
+    @Test
+    public void MecanumWheels_speedCoefficientWorks()
+    {
+        MecanumWheelController wheelController = GetInitializedWheelController();
+
+        wheelController.UpdateWheels(1.0, 0.0, 0.0, 1.0);
+        Assert.assertEquals(((DcMotorTester)wheelController.FL).Power, 1.0, allowedDelta);
+
+        wheelController.UpdateWheels(1.0, 0.0, 0.0, 0.5);
+        Assert.assertEquals(((DcMotorTester)wheelController.FL).Power, 0.5, allowedDelta);
+    }
 }
