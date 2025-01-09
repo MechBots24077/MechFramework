@@ -1,8 +1,8 @@
 package com.mcdanielpps.mechframework.util.task;
 
 public interface Task {
-    public TaskStatus GetStatus();
+    TaskStatus GetStatus();
 
-    public void Start();
-    public void Update();
+    void Start();
+    void Update();
 }
