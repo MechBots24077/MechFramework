@@ -1,5 +1,7 @@
 package com.mcdanielpps.mechframework.util;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.mcdanielpps.mechframework.util.task.Task;
 import com.mcdanielpps.mechframework.util.task.TaskStatus;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -14,6 +16,7 @@ public class RobotSystem {
     private final ArrayList<Task> m_Tasks = new ArrayList<>();
 
     private Telemetry m_Telemetry = null;
+    private TelemetryPacket m_Packet = null;
     private HardwareMap m_HardwareMap = null;
     private Gamepad m_Gamepad1 = null;
     private Gamepad m_Gamepad2 = null;
@@ -33,6 +36,8 @@ public class RobotSystem {
     public void Update() {
         Time.Update();
 
+        m_Packet = new TelemetryPacket();
+
         for (int i = 0; i < m_Tasks.size(); i++) {
             Task task = m_Tasks.get(i);
             task.Update();
@@ -41,6 +46,7 @@ public class RobotSystem {
         // Remove tasks that are done
         m_Tasks.removeIf(task -> (task.GetStatus() == TaskStatus.Done));
 
+        FtcDashboard.getInstance().sendTelemetryPacket(m_Packet);
         m_Telemetry.update();
     }
 
@@ -52,6 +58,7 @@ public class RobotSystem {
     }
 
     public Telemetry GetTelemetry() { return m_Telemetry; }
+    public TelemetryPacket GetTelemetryPacket() { return m_Packet; }
     public HardwareMap GetHardwareMap() { return m_HardwareMap; }
     public Gamepad GetGamepad1() { return m_Gamepad1; }
     public Gamepad GetGamepad2() { return m_Gamepad2; }
