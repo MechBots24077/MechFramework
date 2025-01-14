@@ -37,6 +37,7 @@ public class RobotSystem {
         Time.Update();
 
         m_Packet = new TelemetryPacket();
+        m_Packet.put("Delta Time (ms)", Time.DeltaTime() * 1000.0);
 
         for (int i = 0; i < m_Tasks.size(); i++) {
             Task task = m_Tasks.get(i);
