@@ -1,5 +1,5 @@
 package com.mcdanielpps.mechframework.util;
 
-public interface CurrentTimeGetter {
+public interface ICurrentTimeGetter {
     long currentTimeMillis();
 }

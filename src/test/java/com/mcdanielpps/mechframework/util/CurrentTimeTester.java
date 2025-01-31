@@ -1,6 +1,6 @@
 package com.mcdanielpps.mechframework.util;
 
-public class CurrentTimeTester implements CurrentTimeGetter{
+public class CurrentTimeTester implements ICurrentTimeGetter {
     public long CurrentTime = 0;
 
     @Override

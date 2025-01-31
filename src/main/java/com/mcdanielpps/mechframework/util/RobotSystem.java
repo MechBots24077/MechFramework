@@ -2,7 +2,7 @@ package com.mcdanielpps.mechframework.util;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.mcdanielpps.mechframework.util.task.Task;
+import com.mcdanielpps.mechframework.util.task.ITask;
 import com.mcdanielpps.mechframework.util.task.TaskStatus;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class RobotSystem {
 
-    private final ArrayList<Task> m_Tasks = new ArrayList<>();
+    private final ArrayList<ITask> m_Tasks = new ArrayList<>();
 
     private Telemetry m_Telemetry = null;
     private TelemetryPacket m_Packet = null;
@@ -40,7 +40,7 @@ public class RobotSystem {
         m_Packet.put("Delta Time (ms)", Time.DeltaTime() * 1000.0);
 
         for (int i = 0; i < m_Tasks.size(); i++) {
-            Task task = m_Tasks.get(i);
+            ITask task = m_Tasks.get(i);
             task.Update();
         }
 
@@ -53,7 +53,7 @@ public class RobotSystem {
 
     // Functionality
 
-    public void SpawnTask(Task task) {
+    public void SpawnTask(ITask task) {
         m_Tasks.add(task);
         task.Start();
     }

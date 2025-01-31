@@ -1,7 +1,7 @@
 package com.mcdanielpps.mechframework.util;
 
 public class Time {
-    public static CurrentTimeGetter TimeGetter = System::currentTimeMillis;
+    public static ICurrentTimeGetter TimeGetter = System::currentTimeMillis;
 
     public static double DeltaTime() { return s_DeltaTime; }
 

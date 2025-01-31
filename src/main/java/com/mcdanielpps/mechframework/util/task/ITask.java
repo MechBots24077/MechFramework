@@ -1,6 +1,6 @@
 package com.mcdanielpps.mechframework.util.task;
 
-public interface Task {
+public interface ITask {
     TaskStatus GetStatus();
 
     void Start();
