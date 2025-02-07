@@ -28,7 +28,7 @@ public class MotorController {
         Motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public double Update(TelemetryPacket packet, String name, float coeff) {
+    public double Update(String name, float coeff) {
         long currentTime = Time.TimeGetter.currentTimeMillis();
         if ((currentTime - m_LastMeasurement) < 5) { return 0.0; }
         m_LastMeasurement = currentTime;
@@ -38,9 +38,9 @@ public class MotorController {
         double output = m_PID.Update((double)Goal, (double)m_CurrentPosition);
         Motor.setPower(output / 100.0);
 
-        packet.put(name + ", Position", m_CurrentPosition * coeff);
-        packet.put(name + ", Goal", Goal * coeff);
-        packet.put(name + ", Power", (output / 100.0) * coeff);
+//        packet.put(name + ", Position", m_CurrentPosition * coeff);
+//        packet.put(name + ", Goal", Goal * coeff);
+//        packet.put(name + ", Power", (output / 100.0) * coeff);
 
         return output;
     }
